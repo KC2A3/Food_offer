@@ -64,9 +64,9 @@ function comparativeOffer(one, two) {
   let promotion;
   let orderList = loadPromotions();
   if (one > two) {
-    promotion = orderList[0];
+    promotion = orderList[0].type;
   } else {
-    promotion = orderList[1];
+    promotion = orderList[1].type;
   }
   return promotion;
 }
