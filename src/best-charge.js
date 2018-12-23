@@ -7,6 +7,7 @@ function bestCharge(selectedItems) {
   let listPrice = getPrice(listNumber);
   let full30 = discount(listPrice);
   let halfDiscount = halfPrice(listPrice);
+  let choosePromotion = comparativeOffer(full30, halfDiscount);
   return /*TODO*/;
 }
 /*读取输入的菜品数量*/
@@ -64,11 +65,35 @@ function comparativeOffer(one, two) {
   let promotion;
   let orderList = loadPromotions();
   if (one > two) {
-    promotion = orderList[0].type;
+    promotion = orderList[0];
+  } else if (one < two) {
+    promotion = orderList[1];
   } else {
-    promotion = orderList[1].type;
+    promotion = orderList[0];
   }
   return promotion;
 }
 /*输出商品清单和优惠信息*/
-function printList {}
+function printList(list, promotion, totalPrice) {
+  let promotionList;
+  for (let half of list) {
+    if (half.id === promotion[1].items[0] || half.id === promotion[1].items[1]) {
+      promotionList += half.name;
+    }
+  }
+  let receipt = '============= 订餐明细 =============\n';
+  for (let item of list) {
+    let itemOfList = item.name + ' x ' + item.count + ' = ' + item.subtotal + '元\n';
+    receipt += itemOfList;
+  }
+  receipt += '-----------------------------------\n';
+  if (!promotion.items) {
+    receipt += '使用优惠:\n' + promotion.type + '，省6元\n';
+  } else {
+    receipt += '使用优惠:\n' + promotion.type + promotionList + '，省'++'元\n'
+  }
+  receipt += '-----------------------------------\n';
+  receipt += '总计：' + totalPrice + '元\n';
+  receipt += '===================================';
+  return receipt;
+}
