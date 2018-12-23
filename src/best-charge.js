@@ -14,8 +14,18 @@ function getNumber(listArr){
             order.push({id:list[0],num:list[1]});
     }return order;
 }
-/*根据菜品数量算出各个菜品价格*/
-function getPrice{}
+/*根据菜品编码得到菜品信息算出各个菜品价格*/
+function getPrice(order){
+    let item=loadAllItems();
+    for (let numbering of order){
+        for (let price of item){
+            if (numbering.id===price.id){
+                numbering.price=price.price*numbering.num;
+                numbering.name=price.name;
+            }
+        }
+    }return order;
+}
 /*满30元的话进行满30减6操作*/
 function discount{}
 /*进行指定菜品半价操作*/
