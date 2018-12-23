@@ -5,11 +5,12 @@ var loadPromotions = require("promotions");
 function bestCharge(selectedItems) {
   let listNumber = getNumber(selectedItems);
   let listPrice = getPrice(listNumber);
-  let original=originalPrice(listPrice);
+  let original = originalPrice(listPrice);
   let full30 = discount(listPrice);
   let halfDiscount = halfPrice(listPrice);
   let choosePromotion = comparativeOffer(full30, halfDiscount);
-return printList(listPrice,choosePromotion,original,)
+  let discountPrice = discountPrice(full30, halfDiscount);
+  return printList(listPrice, choosePromotion, original, discountPrice);
 }
 /*读取输入的菜品数量*/
 function getNumber(listArr) {
@@ -82,10 +83,21 @@ function comparativeOffer(one, two) {
   }
   return promotion;
 }
+/*优惠价格*/
+function discountPrice(one, two) {
+  let price;
+  let orderList = loadPromotions();
+  if (one > two) {
+    price = one;
+  } else {
+    price = two;
+  }
+  return price;
+}
 /*输出商品清单和优惠信息*/
 function printList(list, promotion, originalPrice, totalPrice) {
   let promotionList;
-  let discountedPrices=originalPrice-totalPrice;
+  let discountedPrices = originalPrice - totalPrice;
   for (let half of list) {
     if (half.id === promotion[1].items[0] || half.id === promotion[1].items[1]) {
       promotionList += half.name;
@@ -100,7 +112,7 @@ function printList(list, promotion, originalPrice, totalPrice) {
   if (!promotion.items) {
     receipt += '使用优惠:\n' + promotion.type + '，省6元\n';
   } else {
-    receipt += '使用优惠:\n' + promotion.type + promotionList + '，省'+discountedPrices+'元\n'
+    receipt += '使用优惠:\n' + promotion.type + promotionList + '，省' + discountedPrices + '元\n'
   }
   receipt += '-----------------------------------\n';
   receipt += '总计：' + totalPrice + '元\n';
