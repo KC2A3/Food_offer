@@ -12,7 +12,7 @@ function bestCharge(selectedItems) {
   let discountPrice = discountPrice(full30, halfDiscount);
   return printList(listPrice, choosePromotion, original, discountPrice);
 }
-/*读取输入的菜品数量*/
+
 function getNumber(listArr) {
   let order = [];
   for (let category of listArr) {
@@ -24,7 +24,7 @@ function getNumber(listArr) {
   }
   return order;
 }
-/*根据菜品编码得到菜品信息算出各个菜品价格*/
+
 function getPrice(order) {
   let item = loadAllItems();
   for (let numbering of order) {
@@ -37,7 +37,7 @@ function getPrice(order) {
   }
   return order;
 }
-/*计算原价*/
+
 function originalPrice(order) {
   let totalPrice = 0;
   for (let i = 0; i < order.length; i++) {
@@ -45,7 +45,7 @@ function originalPrice(order) {
   }
   return totalPrice;
 }
-/*满30元的话进行满30减6操作*/
+
 function discount(order) {
   let totalPrice = 0;
   for (let i = 0; i < order.length; i++) {
@@ -56,7 +56,7 @@ function discount(order) {
   }
   return totalPrice;
 }
-/*进行指定菜品半价操作*/
+
 function halfPrice(order) {
   let orderList = loadPromotions();
   for (let half of order) {
@@ -70,7 +70,7 @@ function halfPrice(order) {
   }
   return totalPrice;
 }
-/*比较两种方法优惠量大小并选择*/
+
 function comparativeOffer(one, two) {
   let promotion;
   let orderList = loadPromotions();
@@ -83,7 +83,7 @@ function comparativeOffer(one, two) {
   }
   return promotion;
 }
-/*优惠价格*/
+
 function discountPrice(one, two) {
   let price;
   let orderList = loadPromotions();
@@ -94,7 +94,7 @@ function discountPrice(one, two) {
   }
   return price;
 }
-/*输出商品清单和优惠信息*/
+
 function printList(list, promotion, originalPrice, totalPrice) {
   let promotionList;
   let discountedPrices = originalPrice - totalPrice;
